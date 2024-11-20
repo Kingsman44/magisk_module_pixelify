@@ -1,5 +1,5 @@
-# PIXELIFY MAGISK MODULE
-Enable Pixel Ui and Some Exclusive Features.<br>
+﻿# PIXELIFY MAGISK MODULE
+Enable Pixel UI and some exclusive features.<br>
 
 <a href="https://www.pling.com/p/1794976"><img src="https://img.shields.io/badge/Download-v2.2-brown.svg" width="150"></a>
 <a href="https://www.pling.com/p/2004615/"><img src="https://img.shields.io/badge/Download-Submodules-brown.svg" width="200" height="30"></a>
@@ -10,43 +10,43 @@ Enable Pixel Ui and Some Exclusive Features.<br>
 
 ## ⭐ Requirements
 - **Android Version: Android 7.0 to Android 13**
-- **Arm64 device**
+- **ARM64 device**
 - **Volume Keys (optional)**
-- **Internet for NGA Resources, Pixel Livewallpaper, Device Personalization Services & Pixel Launcher**
-- **Zygisk or Riru (Recommended but not compulsary)**
-- **Note: flash zip on magisk only not twrp**
+- **Internet for NGA Resources, Pixel Live Wallpaper, Device Personalization Services & Pixel Launcher**
+- **Zygisk or Riru (Recommended but not compulsory)**
+- **Note: Flash ZIP on Magisk only, not TWRP**
 
-### Supported Roms
-- OneUi
-- Custom Roms
+### Supported ROMs
+- OneUI
+- Custom ROMs
 - Pixel Stock
 - Android One
-- MiUI
+- MIUI
 - FunTouchOS
 - OxygenOS
-- ColorOs
-- All stock android roms
-- Windows Subsystem Android
+- ColorOS
+- All stock android ROMs
+- Windows Subsystem for Android
 
 ### Pixelify Sub Modules <br>
-Is Pixelify not working correctly or too big for your phone, Pixelify provide some sub module for standalone features
+Is Pixelify not working correctly or too big for your phone? Pixelify provides some sub-modules for standalone features.
 - Call Screening 
-- Now Playing (Android System Inteligence required)
+- Now Playing (Android System Intelligence required)
 - Google Hotword
 - Google Photos Unlimited Backup
 - Google Bootanimation
 
 ### Installation
-- Recommend to use magisk v24 or above from Pixelify v2
+- Is recommended to use Magisk v24 or above from Pixelify v2
 - If Volume keys are working then ignore no_vk files otherwise check Installation without Volume Keys
-- Enable zygisk
+- Enable Zygisk
 - Flash Module
 - Enjoy
 
 ### Installation without Volume Keys
 - Use packages with Pixelify-${version}-no_VK.zip
 - Place config.prop to internal storage>Pixelify (/sdcard/Pixelify/config.prop)
-- Edit prop according what you want to select
+- Edit prop according to what you want to select
 - (If you have any problem placing config.prop there then you also can extract and update config.prop inside the packages it automatically use it.) 
 
 ### Zygisk and Riru spoofing configuration
@@ -62,17 +62,16 @@ Is Pixelify not working correctly or too big for your phone, Pixelify provide so
 - Works with Riru as well as Zygisk
 - Works with most of Android version (Nougat to 13)
 - Uses Dynamic spoofing (Riru & Zygisk) to only Google apps to prevent crashes and other issues
-- Provides most of Pixel Features
-- Installation is can be optional
+- Provides most of Pixel Features, many of them unreleased
+- Some modules can be chosen during install
 - Supports (720p,1080p,1440p) Google bootanimation
-- Allows to created backup for online pixelify packages
-- Also provides some unreleased Pixel Features
+- Allows to created backup for online Pixelify packages
 - Create Google keyboard, Google app, Google Text to speech, Google Dialer as system app if not installed
-- Dynamic Permission generation of apps installed by pixelify
+- Dynamic permission generation of apps installed by Pixelify
 - Config as well as Volume key installation
 - Patches Flags to force enable pixel features
 - Single zip works with Zygisk as well as Riru
-- Works on almost all roms.
+- Works on almost all ROMs.
 
 ## ⭐ Pixel Features
 ### Pixel 7 Features Enables
@@ -80,7 +79,7 @@ Is Pixelify not working correctly or too big for your phone, Pixelify provide so
 -   Magic Eraser
 -   Google Dialer Direct Call (12+)
 -   New At a Glance feature (12+ & Dec+ Patch) 
--   Google Quick Pharse*
+-   Google Quick Phrase*
 -   Google Next Generation Assistant Typing (Next Generation Assistant Required)*
 -   Call Caption Typing (12+)
 -   Live Captions different language
@@ -101,14 +100,14 @@ Is Pixelify not working correctly or too big for your phone, Pixelify provide so
 -   Google Fit Heart rate
 -   Google Fit Respiratory rate
 -   Live captions (10+)
--   Next Generation Assistant* (10+)(Optional)
+-   Next Generation Assistant* (10+) (Optional)
 -   Now Playing Export* (Works only on Pixel Phone)
 -   Pixel Device spoofing (Optional)
 -   Pixel Blue theme accent
 -   Pixel bootanimation (Optional)
 -   Pixel Launcher (10+)(Optional)
 -   Pixel Live Wallpapers (Optional)
--   Pokemon SideKick Live Wallpaper (Optional-Included with LiveWallpapers)
+-   Pokemon SideKick Live Wallpaper (Optional-Included with Live Wallpapers)
 -   Portrait Light (10+)
 -   Screen Attention Service
 -   Smart Compose
@@ -176,11 +175,11 @@ Is Pixelify not working correctly or too big for your phone, Pixelify provide so
 - Fixed translation showing unknown languages
 - Fixes for Assistant Voice Typing (NGA Tying)
 - Fixes for Bootloop saver
-- Fixes for Call Screening & Added More Call screening Languages
+- Fixes for Call Screening & added more Call Screening languages
 - Fixes for Call recording on google dialer
-- Fixes for Google apps crashing on oppo color os, and Vivo phones (a13,a12)
+- Fixes for Google apps crashing on oppo colorOS, and Vivo phones (a13,a12)
 - Fixes for Pixel launcher crash on OOS (12)
-- Fixes for Pixel launcher recent crash on some customs roms(Thanks to @@saitama_96) a13
+- Fixes for Pixel launcher recent crash on some customs ROMs(Thanks to @@saitama_96) a13
 - Fully Fixed Precise location disable caused by GMS
 - Google Hotword is removed for now
 - Grammar checker fixed for Fr-Fr, Es-Es
