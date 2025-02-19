@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class EntryPoint {
-    public static void init(String BRAND, String MANUFACTURER, String PRODUCT, String DEVICE, String MODEL,
+    public static void init(String PROCESS,String BRAND, String MANUFACTURER, String PRODUCT, String DEVICE, String MODEL,
             String FINGERPRINT) {
         LOG("Called to spoof by pixelify zygisk " + DEVICE + " " + MODEL + " " + FINGERPRINT);
         setPropValue("MANUFACTURER", MANUFACTURER);
@@ -21,6 +21,9 @@ public final class EntryPoint {
         setPropValue("FINGERPRINT", FINGERPRINT);
         setPropValue("TAGS", "release-keys");
         setPropValue("TYPE", "user");
+        if(PROCESS.startsWith("com.google.android.gms")) {
+            setPropValue("TIME", System.currentTimeMillis());
+        }
     }
     static void setPropValue(String key, Object value) {
         try {

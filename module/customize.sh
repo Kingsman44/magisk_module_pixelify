@@ -31,9 +31,13 @@ else
     riru_path=""
 fi
 
-# Set Installation type: Normal, Zygsik, Riru
-if [ "$KSU" == true ]; then
-    ui_print "- Root App: KSU"
+# Set Installation type: Normal, Zygsik, Riru, Apatch
+if [ "$KSU" == true ] || [ "$APATCH" == true ]; then
+    if [ "$KSU" == true ]; then
+        ui_print "- Root App: KSU"
+    else
+        ui_print "- Root App: APatch"
+    fi
     if [ -d '/data/adb/modules/zygisksu' ]; then
         # ZygiskSU is installed.
         # Set the module type to ZygsikSU
@@ -51,7 +55,7 @@ else
         # Riru is installed.
         # Check if Zygisk is enabled.
         if [ "$zygisk_enabled" == "value=1" ]; then
-            # Set the module type to Zygsik
+            # Set the module type to Zygisk
             MODULE_TYPE=2
             ui_print "! Riru Installed but disabled"
             ui_print "- Switching to zygisk mode"
@@ -311,7 +315,13 @@ if [ $API -eq 31 ]; then
         REQ_NEW_WLP=1
     fi
     elif [ $API -eq 34 ]; then
-    if [ $sec_patch -ge $(date -d 2024-01-01 +%s) ] || [ $build_date -ge $(date -d 2024-00-01 +%s) ]; then
+    if [ $sec_patch -ge $(date -d 2024-08-01 +%s) ] || [ $build_date -ge $(date -d 2024-08-01 +%s) ]; then
+        PL_VERSION="aug_2024"
+        LOS_FIX=0
+        elif [ $sec_patch -ge $(date -d 2024-07-01 +%s) ] || [ $build_date -ge $(date -d 2024-07-01 +%s) ]; then
+        PL_VERSION="jul_2024"
+        LOS_FIX=0
+        elif [ $sec_patch -ge $(date -d 2024-01-01 +%s) ] || [ $build_date -ge $(date -d 2024-00-01 +%s) ]; then
         PL_VERSION="jan_2024"
         LOS_FIX=0
     fi
@@ -1010,6 +1020,7 @@ if [ -d /data/data/$DIALER ]; then
         db_edit com.google.android.dialer floatVal "0.6" "G__call_screen_audio_stitching_uplink_volume_multiplier"
         db_edit com.google.android.dialer intVal "1000" "G__embedding_generation_step_size"
         db_edit com.google.android.dialer boolVal 1 $DIALERFLAGS
+        db_edit com.google.android.dialer boolVal 1 $DIALER_DIRECTBOOT
         
         # $sqlite $gms "DELETE FROM FlagOverrides WHERE packageName='com.google.android.dialer' AND name='G__atlas_mdd_ph_config'"
         # $sqlite $gms "INSERT INTO FlagOverrides(packageName, user, name, flagType, extensionVal, committed) VALUES('com.google.android.dialer', '', 'G__atlas_mdd_ph_config', 0, x'$ATLASBIN', 0)"
@@ -1313,12 +1324,12 @@ if [ -d /data/data/com.google.android.googlequicksearchbox ] && [ $API -ge 29 ] 
         fi
         
         # Patching starts
-        db_edit com.google.android.googlequicksearchbox stringVal "Cheetah" "13477"
+        db_edit com.google.android.googlequicksearchbox stringVal "Caiman" "13477"
         #db_edit com.google.android.googlequicksearchbox boolVal 1  10579 11627 14759 15114 16197 16347 16464 45351462 45352335 45353388 45353425 45354090 45355242 45355425 45357281 45357460 45357462 45357463 45357466 45357467 45357468 45357469 45357470 45357471 45357508 45358425 45368123 45368150 45368483 45374247 45375269 45386105 8674 9449 10596 3174 45357539 45358426 45360742 45372547 45372935 45373820 45374858 45376106 45380073 45380867 45385075 45385287 45386702 7882 8932 9418
         #[ $TENSOR -eq 0 ] && db_edit_bin com.google.android.googlequicksearchbox 5470 $GOOGLEBIN
-        [ $TENSOR -eq 0 ] && db_edit com.google.android.googlequicksearchbox extensionVal "5470" "$GOOGLEBIN"
+        db_edit com.google.android.googlequicksearchbox extensionVal "5470" $GOOGLEBIN
         db_edit com.google.android.libraries.search.googleapp.device#com.google.android.googlequicksearchbox boolVal 1 45410632 45410315 45369077
-        db_edit com.google.android.apps.search.assistant.device#com.google.android.googlequicksearchbox extensionVal 45377874 $GSPOOF
+        #db_edit com.google.android.apps.search.assistant.device#com.google.android.googlequicksearchbox extensionVal 45377874 $GSPOOF
         db_edit com.google.android.googlequicksearchbox boolVal 1 45475988
         #sed -i -e 's/com.google.android.feature.PIXEL_2021_EXPERIENCE/com.google.android.feature.PIXEL_2019_EXPERIENCE/g' $VELVET_APK
         #am force-stop com.google.android.googlequicksearchbox
@@ -1919,7 +1930,7 @@ db_edit com.google.android.platform.device_personalization_services boolVal 0 Tr
 db_edit com.google.android.platform.device_personalization_services boolVal 0 Translate__enable_language_profile_quick_update
 db_edit com.google.android.platform.device_personalization_services boolVal 0 Translate__enable_nextdoor
 db_edit com.google.android.platform.device_personalization_services boolVal $TENSOR Translate__enable_opmv4_service
-db_edit com.google.android.platform.device_personalization_services boolVal 0 Translate__enable_spa_setting
+db_edit com.google.android.platform.device_personalization_services boolVal 0 Translate__enable_spa_setting WallpaperEffects__use_tpu
 #db_edit com.google.android.platform.device_personalization_services stringVal "af,ar,be,bg,bn,ca,cs,cy,da,de,el,eo,es,et,fa,fi,fr,ga,gl,hi,hr,ht,hu,id,is,it,ja,ko,lt,lv,mk,mr,ms,mt,nl,no,pl,pt,ro,ru,sk,sl,sq,sv,sw,ta,te,th,tl,tr,uk,ur,vi,zh,en" Translate__image_to_text_language_list
 #db_edit com.google.android.platform.device_personalization_services stringVal "de,en,ja,es,fr,it" Translate__interpreter_source_languages
 #db_edit com.google.android.platform.device_personalization_services stringVal "de,en,ja,es,fr,it" Translate__interpreter_target_languages
@@ -1939,7 +1950,10 @@ db_edit com.google.android.platform.device_personalization_services stringVal "h
 
 
 #Launcher
-db_edit com.google.android.platform.launcher boolVal 1 "long_press_home_button_to_search" "long_press_home_button_to_search_mpr" "press_hold_nav_handle_to_search" "press_hold_nav_handle_to_search_mpr" "ENABLE_SETTINGS_OSE_CUSTOMIZATIONS" "ENABLE_LONG_PRESS_NAV_HANDLE" "ENABLE_LONG_PRESS_NAV_HANDLE_MPR" "INVOKE_OMNI_LPH" "INVOKE_OMNI_LPH_MPR"
+db_edit com.google.android.platform.launcher intVal 71 LPNH_SLOP_PERCENTAGE
+db_edit com.google.android.platform.launcher intVal 400 LPNH_TIMEOUT_MS
+db_edit com.google.android.platform.launcher boolVal 1 "ENABLE_SEARCH_HAPTIC_HINT" "long_press_home_button_to_search" "long_press_home_button_to_search_mpr" "press_hold_nav_handle_to_search" "press_hold_nav_handle_to_search_mpr" "ENABLE_SETTINGS_OSE_CUSTOMIZATIONS" "ENABLE_LONG_PRESS_NAV_HANDLE" "ENABLE_LONG_PRESS_NAV_HANDLE_MPR" "INVOKE_OMNI_LPH" "INVOKE_OMNI_LPH_MPR" "ANIMATE_LPNH" "SHRINK_NAV_HANDLE_ON_PRESS"
+db_edit com.google.android.platform.launcher_search boolVal 1 "com.google.android.apps.nexuslauncher.allow_omni_splitscreen" "com.google.android.apps.nexuslauncher.invoke_omni_long_press_meta"
 # Google Photos
 #db_edit_bin com.google.android.apps.photos 45415301 $AUDIO_ERASER
 #db_edit_bin com.google.android.apps.photos 45420912 $MAGIC_EDITOR
@@ -2011,7 +2025,7 @@ db_edit com.google.pixel.livewallpaper stringVal "" DownloadableWallpaper__block
 # Google Recorder
 #$sqlite $gms "DELETE FROM FlagOverrides WHERE packageName='com.google.android.apps.recorder#com.google.android.apps.recorder'"
 db_edit com.google.android.apps.recorder#com.google.android.apps.recorder boolVal 1 $GOOGLE_RECORDER_FLAGS
-db_edit com.google.android.apps.recorder#com.google.android.apps.recorder extensionVal "Experiment__summarization_word_restriction" "0a04c801b611"
+#db_edit com.google.android.apps.recorder#com.google.android.apps.recorder extensionVal "Experiment__summarization_word_restriction" "0a04c801b611"
 
 # Calendar New widget Theme
 db_edit com.google.android.calendar boolVal 1 "Gm3Widget_Enabled"
@@ -2050,7 +2064,8 @@ db_edit com.google.android.gms.auth_account boolVal 0 KeyAttestationCheck__inclu
 
 db_edit gmail_android.device#com.google.android.gm boolVal 1 45410707 45417569
 
-db_edit com.google.android.platform.aicore boolVal 1 AicPreferences__enable_persistent_mode
+db_edit com.google.android.platform.aicore boolVal 1 $AICORE_FLAGS
+db_edit com.google.android.platform.aicore boolVal 0 "AicInference__enable_compatibility_check"
 
 db_edit com.google.android.apps.pixel.health_preferences boolVal 1 is_bts_enabled
 #Google TTS

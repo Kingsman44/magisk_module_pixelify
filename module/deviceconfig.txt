@@ -87,6 +87,20 @@ launcher/ENABLE_WIDGETS_PICKER_AIAI_SEARCH=true
 launcher/ENABLE_QUICK_LAUNCH_V2=true
 launcher/GBOARD_UPDATE_ENTER_KEY=true
 launcher/enable_quick_launch_v2=true
+launcher/ANIMATE_LPNH=true
+launcher/SHRINK_NAV_HANDLE_ON_PRESS=true
+launcher/long_press_home_button_to_search=true
+launcher/long_press_home_button_to_search_mpr=true
+launcher/press_hold_nav_handle_to_search=true
+launcher/press_hold_nav_handle_to_search_mpr=true
+launcher/ENABLE_SETTINGS_OSE_CUSTOMIZATIONS=true
+launcher/ENABLE_LONG_PRESS_NAV_HANDLE=true
+launcher/ENABLE_LONG_PRESS_NAV_HANDLE_MPR=true
+launcher/INVOKE_OMNI_LPH=true
+launcher/INVOKE_OMNI_LPH_MPR=true
+launcher/ENABLE_LPNH_DEEP_PRESS=true
+launcher_search/com.google.android.apps.nexuslauncher.allow_omni_splitscreen=true
+launcher_search/com.google.android.apps.nexuslauncher.invoke_omni_long_press_meta=true
 
 # Pixel Launcher (Recents)
 device_personalization_services/Overview__enable_lens_r_overview_long_press=true

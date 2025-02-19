@@ -19,7 +19,15 @@ chmod 0755 $sqlite
 gms=/data/data/com.google.android.gms/databases/phenotype.db
 gser=/data/data/com.google.android.gsf/databases/gservices.db
 
-disable="com.google.android.gms/com.google.android.gms.update.phone.PopupDialog"
+disable="com.google.android.gms/com.google.android.gms.update.phone.PopupDialog
+com.android.vending/com.google.android.finsky.systemupdate.SystemUpdateSettingsContentProvider
+com.android.vending/com.google.android.finsky.systemupdateactivity.SettingsSecurityEntryPoint
+com.android.vending/com.google.android.finsky.systemupdateactivity.SystemUpdateActivity
+com.google.android.gms/com.google.android.gms.update.phone.PopupDialog
+com.google.android.gms/com.google.android.gms.update.OtaSuggestionSummaryProvider
+com.google.android.gms/com.google.android.gms.update.SystemUpdateActivity
+com.google.android.gms/com.google.android.gms.update.SystemUpdateGcmTaskService
+com.google.android.gms/com.google.android.gms.update.SystemUpdateService"
 
 update="com.google.android.apps.wellbeing/com.google.android.apps.wellbeing.sleepinsights.ui.SleepInsightsActivity
 com.google.android.apps.wellbeing/com.google.android.apps.wellbeing.sleepinsights.ui.dailyinsights.SleepInsightsDailyCardsActivity

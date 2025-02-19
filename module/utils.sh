@@ -429,6 +429,8 @@ db_edit() {
         fi
         if [ -z "$FF" ]; then
             UPDATEFLAGS=1
+        elif [ "$type" == "extensionVal" ]; then
+            UPDATEFLAGS=1
         elif [ "$curval" != "$val" ]; then
             UPDATEFLAGS=1
             mkdir -p $MODPATH/flags
@@ -865,7 +867,7 @@ install_wallpaper_with_backup() {
                     print ""
                     print "- Installing Styles and Wallpapers"
                     print ""
-                    if [ $API -eq 34 ] || [ $REQ_NEW_WLP -eq 1 ]; then
+                    if [ $API -ge 34 ] || [ $REQ_NEW_WLP -eq 1 ]; then
                         tar -xf $MODPATH/files/wlp-$API.tar.xz -C $MODPATH/system$product
                     else
                         tar -xf $MODPATH/files/wlp-$API.tar.xz -C $MODPATH/system$product/priv-app
@@ -940,7 +942,11 @@ install_wallpaper() {
                 print ""
                 print "- Installing Styles and Wallpapers"
                 print ""
-                tar -xf $MODPATH/files/wpg-$API.tar.xz -C $MODPATH/system$product/priv-app
+                if [ $API -ge 34 ]; then
+                    tar -xf $MODPATH/files/wpg-$API.tar.xz -C $MODPATH/system$product
+                else
+                    tar -xf $MODPATH/files/wpg-$API.tar.xz -C $MODPATH/system$product/priv-app
+                fi
                 if [ $API -ge 31 ]; then
                     mkdir -p $MODPATH/system/product/app/PixelThemesStub
                     rm -rf $MODPATH/system/product/app/PixelThemesStub/PixelThemesStub.apk

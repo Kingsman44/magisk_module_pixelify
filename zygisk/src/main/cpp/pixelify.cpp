@@ -15,14 +15,16 @@ using zygisk::ServerSpecializeArgs;
 #define CLASSES_DEX "/data/adb/modules/Pixelify/classes.dex"
 
 // Spoofing apps
-static std::vector<std::string> P1 = {"com.google.android.apps.photos"};
+static std::vector<std::string> P1 = {"com.google.android.apps.photos","com.google.vr.apps.ornament"};
+static std::vector<std::string> P2 = {};
 static std::vector<std::string> P5 = {"com.google", "com.google.android.dialer", "com.google.android.tts", "com.google.android.apps.wearables.maestro.companion", "com.nothing.smartcenter", "com.netflix.mediaclient", "com.google.process.gapps", "com.google.process.gservices"};
-static std::vector<std::string> P6 = {};
+static std::vector<std::string> P6 = {"com.google.android.apps.customization.pixel"};
 static std::vector<std::string> P7 = {};
-static std::vector<std::string> P8 = {"com.google.android.gms","com.android.vending", "com.google.android.aicore", "com.google.pixel.livewallpaper", "com.google.android.apps.subscriptions.red", "com.snapchat.android", "com.google.android.googlequicksearchbox", "com.adobe.lrmobile", "com.google.android.apps.recorder", "com.google.android.wallpaper.effects", "com.google.android.apps.customization.pixel"};
-static std::vector<std::string> PFold = {"com.google.android.apps.subscriptions.red"};
-static std::vector<std::string> S23U = {"com.samsung."};
-static std::vector<std::string> keep = {"com.google.vr.apps.ornament", "com.google.android.apps.nexuslauncher", "com.google.android.apps.pixelmigrate", "com.google.android.apps.restore", "com.google.android.apps.tachyon", "com.google.android.apps.tycho", "com.google.android.euicc", "com.google.oslo", "com.google.ar.core", "com.google.android.apps.recorder", "com.google.android.GoogleCamera", "com.google.android.apps.motionsense.bridge", "com.google.android.gms.chimera", "com.google.android.gms.update", "com.android.camera", "com.google.android.xx", "com.google.android.googlequicksearchbox:HotwordDetectionService", "com.google.android.apps.mesagging:rcs", "com.google.android.googlequicksearchbox:trusted:com.google.android.apps.gsa.hotword.hotworddetectionservice.GsaHotwordDetectionService", "com.google.android.gms.unstable"};
+static std::vector<std::string> P8 = {};
+static std::vector<std::string> P9 = {"com.zeptoconsumerapp","com.google.android.gms","com.google.android.apps.nexuslauncher","com.google.android.aicore","com.google.android.wallpaper.effects","com.google.android.apps.subscriptions.red","com.android.vending","com.google.android.googlequicksearchbox","com.google.android.apps.bard"};
+static std::vector<std::string> PFold = {};
+static std::vector<std::string> S23U = {};
+static std::vector<std::string> keep = {"com.google.android.GoogleCamera", "com.google.android.apps.pixelmigrate", "com.google.android.apps.restore", "com.google.android.apps.tachyon", "com.google.android.apps.tycho", "com.google.android.euicc", "com.google.oslo", "com.google.android.apps.recorder", "com.google.android.apps.motionsense.bridge", "com.google.android.gms.chimera", "com.google.android.gms.update", "com.android.camera", "com.google.android.xx", "com.google.android.googlequicksearchbox:HotwordDetectionService", "com.google.android.apps.mesagging:rcs", "com.google.android.googlequicksearchbox:trusted:com.google.android.apps.gsa.hotword.hotworddetectionservice.GsaHotwordDetectionService", "com.google.android.gms.unstable"};
 
 // Fingerprint
 const char P1_FP[256] = "google/marlin/marlin:10/QP1A.191005.007.A3/5972272:user/release-keys";
@@ -32,6 +34,7 @@ const char P7_FP[256] = "google/husky/husky:14/UD1A.230803.022.A3/10714844:user/
 const char P2_FP[256] = "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys";
 const char PF_FP[256] = "google/felix/felix:13/TD3A.230203.070.A1/10075871:user/release-keys";
 const char P8_FP[256] = "google/husky/husky:14/AP1A.240305.019.A1/11445699:user/release-keys";
+const char P9_FP[256] = "google/caiman/caiman:14/AD1A.240530.047.U1/12150698:user/release-keys";
 const char S23U_FP[256] = "samsung/dm3qxxx/qssi:14/UP1A.231005.007/S918BXXS3BXBD:user/release-keys";
 
 // Classes.dex Inject packages
@@ -51,19 +54,19 @@ public:
         spoof_type = getSpoof(process);
         package_name = process;
         shouldinjectdex = false;
-        if (RequiresInject(package_name))
-        {
-            long dexSize = 0;
-            int fd = api->connectCompanion();
-            read(fd, &dexSize, sizeof(long));
-            LOGI("Dex file size: %ld", dexSize);
-            if (dexSize > 0)
-            {
-                dexVector.resize(dexSize);
-                read(fd, dexVector.data(), dexSize);
-                shouldinjectdex = true;
-            }
-        }
+        // if (RequiresInject(package_name))
+        // {
+        //     long dexSize = 0;
+        //     int fd = api->connectCompanion();
+        //     read(fd, &dexSize, sizeof(long));
+        //     LOGI("Dex file size: %ld", dexSize);
+        //     if (dexSize > 0)
+        //     {
+        //         dexVector.resize(dexSize);
+        //         read(fd, dexVector.data(), dexSize);
+        //         shouldinjectdex = true;
+        //     }
+        // }
     }
     void postAppSpecialize(const AppSpecializeArgs *) override
     {
@@ -140,6 +143,14 @@ public:
             FINGERPRINT = P8_FP;
             break;
         case 8:
+            BRAND = "google";
+            MANUFACTURER = "Google";
+            PRODUCT = "caiman";
+            DEVICE = "caiman";
+            MODEL = "Pixel 9 Pro";
+            FINGERPRINT = P9_FP;
+            break;
+        case 9:
             BRAND = "samsung";
             MANUFACTURER = "samsung";
             PRODUCT = "dm3qxxx";
@@ -189,14 +200,15 @@ public:
             auto entryPointClass = (jclass)entryClassObj;
 
             LOGI("call init");
-            auto entryInit = env->GetStaticMethodID(entryPointClass, "init", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+            auto entryInit = env->GetStaticMethodID(entryPointClass, "init", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+            auto str = env->NewStringUTF(package_name.c_str());
             auto str1 = env->NewStringUTF(BRAND.c_str());
             auto str2 = env->NewStringUTF(MANUFACTURER.c_str());
             auto str3 = env->NewStringUTF(PRODUCT.c_str());
             auto str4 = env->NewStringUTF(DEVICE.c_str());
             auto str5 = env->NewStringUTF(MODEL.c_str());
             auto str6 = env->NewStringUTF(FINGERPRINT.c_str());
-            env->CallStaticVoidMethod(entryPointClass, entryInit, str1, str2, str3, str4, str5, str6);
+            env->CallStaticVoidMethod(entryPointClass, entryInit, str, str1, str2, str3, str4, str5, str6);
             return;
         }
         api->setOption(zygisk::DLCLOSE_MODULE_LIBRARY);
@@ -310,6 +322,11 @@ private:
             if (package.find(s) != std::string::npos)
                 return 1;
         }
+        for (auto &s : P2)
+        {
+            if (package.find(s) != std::string::npos)
+                return 2;
+        }
         for (auto &s : P8)
         {
             if (package.find(s) != std::string::npos)
@@ -331,6 +348,11 @@ private:
                 return 4;
         }
         for (auto &s : S23U)
+        {
+            if (package.find(s) != std::string::npos)
+                return 9;
+        }
+        for (auto &s : P9)
         {
             if (package.find(s) != std::string::npos)
                 return 8;

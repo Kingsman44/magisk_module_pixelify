@@ -10,3 +10,11 @@ ro.url.legal=http://www.google.com/intl/%s/mobile/android/basic/phone-legal.html
 ro.product.needs_model_edit=false
 ro.support_one_handed_mode=true
 ro.com.google.clientidbase=android-google
+aoj.feature.vis_transitions=true
+aoj.feature.contract=true
+aoj.feature.debug=true
+ro.quick_start.oem_id=00e0
+ro.quick_start.device_id=caiman
+ro.com.google.cdb.spa1=bsxasm1
+ro.bbt.support.circle2search=true
+
